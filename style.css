@@ -1,0 +1,235 @@
+:root {
+    --bg-color: #0d1117;
+    --text-color: #c9d1d9;
+    --prompt-color: #7ee787;
+    --cmd-color: #79c0ff;
+    --highlight-color: #ff7b72;
+    --font-family: 'Consolas', 'Courier New', monospace;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Light Mode Variables */
+body.light-mode {
+    --bg-color: #f0f6fc;
+    --text-color: #24292f;
+    --prompt-color: #0550ae;
+    --cmd-color: #0969da;
+    --highlight-color: #cf222e;
+}
+
+body.light-mode .terminal-window {
+    background-color: #ffffff;
+    border-color: #d0d7de;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode #navbar {
+    background-color: rgba(240, 246, 252, 0.95);
+    border-bottom: 1px solid #d0d7de;
+}
+
+body.light-mode .output {
+    border-left: 2px solid #d0d7de;
+}
+
+body.light-mode .task-list li,
+body.light-mode .date-location,
+body.light-mode .tech-stack,
+body.light-mode .gpa {
+    color: #57606a;
+}
+
+/* Navbar */
+#navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(13, 17, 23, 0.95);
+    padding: 15px 0;
+    text-align: center;
+    border-bottom: 1px solid #30363d;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+#theme-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+#theme-toggle:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+#navbar a {
+    color: var(--prompt-color);
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: color 0.3s, text-shadow 0.3s;
+    font-size: 1.1rem;
+}
+
+#navbar a:hover {
+    color: var(--cmd-color);
+    text-shadow: 0 0 8px var(--cmd-color);
+}
+
+/* Sections */
+.scroll-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 10% 20px 10%;
+    box-sizing: border-box;
+}
+
+.terminal-window {
+    background-color: #010409;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.command-line {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: var(--cmd-color);
+    font-weight: bold;
+}
+
+.prompt {
+    color: var(--prompt-color);
+    margin-right: 10px;
+}
+
+.output {
+    margin-left: 10px;
+    padding-left: 20px;
+    border-left: 2px solid #30363d;
+    transition: border-color 0.3s;
+}
+
+/* Content Typography */
+h1 {
+    font-size: 3rem;
+    color: var(--highlight-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.3rem;
+    color: var(--highlight-color);
+    margin: 0 0 10px 0;
+}
+
+p {
+    margin: 5px 0;
+}
+
+.role {
+    font-size: 1.5rem;
+    color: var(--cmd-color);
+    margin-bottom: 30px;
+}
+
+.content-block {
+    margin-bottom: 35px;
+}
+
+.content-block:last-child {
+    margin-bottom: 0;
+}
+
+.task-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.task-list li {
+    margin-bottom: 8px;
+    color: #8b949e;
+}
+
+/* Specific elements */
+.folder-name {
+    color: var(--cmd-color);
+}
+
+.company, .degree {
+    color: var(--text-color);
+    font-weight: normal;
+}
+
+.date-location, .tech-stack, .gpa {
+    color: #8b949e;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+/* Animations */
+.hidden {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.blinking-cursor::after {
+    content: '█';
+    animation: blink 1s step-start infinite;
+    color: var(--text-color);
+    margin-left: 5px;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #navbar a {
+        margin: 0 8px;
+        font-size: 0.9rem;
+    }
+    .scroll-section {
+        padding: 80px 5% 20px 5%;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+}
