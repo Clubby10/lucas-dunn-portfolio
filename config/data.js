@@ -1,19 +1,13 @@
-// This file holds all your portfolio information.
-// You can easily update this data without touching the core HTML, CSS, or JS files.
-
+// portfolio content data
 const portfolioData = {
-    // ----------------------------------------
-    // Home / Profile Information
-    // ----------------------------------------
+    // hero section
     personal: {
         name: "Lucas Dunn",
         role: "Computing Student @ Queen’s University | Software Engineer",
         introMessage: "Scroll down to explore my projects, experience, and technical background."
     },
 
-    // ----------------------------------------
-    // Projects Section
-    // ----------------------------------------
+    // stuff i've built
     projects: [
         {
             name: "MBS Manual Posting Tool",
@@ -42,9 +36,7 @@ const portfolioData = {
         }
     ],
 
-    // ----------------------------------------
-    // Work Experience Section
-    // ----------------------------------------
+    // work history
     experience: [
         {
             title: "Software Engineer",
@@ -91,9 +83,7 @@ const portfolioData = {
         }
     ],
 
-    // ----------------------------------------
-    // Education Section
-    // ----------------------------------------
+    // school stuff
     education: [
         {
             school: "Queen’s University",

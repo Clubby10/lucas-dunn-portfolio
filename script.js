@@ -1,10 +1,7 @@
-// Ensure DOM is fully loaded before manipulating
+// wait for page to load
 document.addEventListener("DOMContentLoaded", () => {
-    // -----------------------------------------------------
-    // 1. DYNAMICALLY LOAD CONTENT FROM CONFIG (data.js)
-    // -----------------------------------------------------
-
-    // Home Section
+    
+    // grab data from config
     const personalData = portfolioData.personal;
     if (personalData) {
         document.getElementById('name').textContent = personalData.name;
@@ -12,13 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('intro').textContent = personalData.introMessage;
     }
 
-    // Projects Section
+    // build projects list
     const projectsContainer = document.getElementById('projects-container');
     if (portfolioData.projects) {
         let projectsHTML = '';
         portfolioData.projects.forEach(project => {
             let descriptionHTML = '';
             
+            // handle arrays vs strings for descriptions
             if (Array.isArray(project.description)) {
                 let listItems = project.description.map(desc => `<li>- ${desc}</li>`).join('');
                 descriptionHTML = `<ul class="task-list" style="margin-top: 5px; margin-bottom: 5px;">${listItems}</ul>`;
@@ -28,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             projectsHTML += `
                 <div class="content-block">
-                    <h3 class="folder-name">drwxr-xr-x  ${project.name}</h3>
+                    <h3 class="folder-name">${project.name}</h3>
                     ${descriptionHTML}
                     <p class="tech-stack">  - Stack: ${project.techStack}</p>
                 </div>
@@ -37,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         projectsContainer.innerHTML = projectsHTML;
     }
 
-    // Experience Section
+    // build work history
     const experienceContainer = document.getElementById('experience-container');
     if (portfolioData.experience) {
         let experienceHTML = '';
@@ -57,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         experienceContainer.innerHTML = experienceHTML;
     }
 
-    // Education Section
+    // build education section
     const educationContainer = document.getElementById('education-container');
     if (portfolioData.education) {
         let educationHTML = '';
@@ -79,42 +77,29 @@ document.addEventListener("DOMContentLoaded", () => {
         educationContainer.innerHTML = educationHTML;
     }
 
-    // -----------------------------------------------------
-    // 2. INITIALIZE SCROLL REVEAL ANIMATIONS
-    // -----------------------------------------------------
-
-    // Set up the observer options
+    // setup scroll reveal
     const observerOptions = {
-        root: null, // Use the viewport as the root
+        root: null,
         rootMargin: '0px',
-        threshold: 0.2 // Trigger when 20% of the element is visible
+        threshold: 0.2
     };
 
-    // Callback function to handle the intersection events
     const observerCallback = (entries, observer) => {
         entries.forEach(entry => {
-            // If the element is visible in the viewport
             if (entry.isIntersecting) {
-                // Add the 'show' class to trigger CSS animation
                 entry.target.classList.add('show');
             }
         });
     };
 
-    // Create the observer instance
     const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
 
-    // Get all sections with the 'hidden' class and observe them
     const hiddenSections = document.querySelectorAll('.scroll-section.hidden');
     hiddenSections.forEach(section => {
         scrollObserver.observe(section);
     });
 
-    // -----------------------------------------------------
-    // 3. OPTIONAL EFFECTS
-    // -----------------------------------------------------
-    
-    // Add a subtle glitch effect to the main header periodically
+    // random header glitch effect
     const glitchText = document.querySelector('.glitch-text');
     if (glitchText) {
         setInterval(() => {
@@ -125,17 +110,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     }
 
-    // -----------------------------------------------------
-    // 4. LIGHT/DARK MODE TOGGLE
-    // -----------------------------------------------------
-    
+    // theme toggle logic
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // Check local storage for saved theme preference on load
+    // check saved theme
     const savedTheme = localStorage.getItem('theme');
     
-    // Default to light mode if no saved preference
+    // start in light mode if no preference
     if (savedTheme === 'dark') {
         body.classList.remove('light-mode');
         themeToggle.textContent = '☀️';
@@ -146,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
         themeToggle.setAttribute('aria-label', 'Toggle dark mode');
     }
 
+    // swap theme on click
     themeToggle.addEventListener('click', () => {
         body.classList.toggle('light-mode');
         

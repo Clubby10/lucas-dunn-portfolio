@@ -22,7 +22,7 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Light Mode Variables */
+/* light theme overrides */
 body.light-mode {
     --bg-color: #f0f6fc;
     --text-color: #24292f;
@@ -53,7 +53,7 @@ body.light-mode .gpa {
     color: #57606a;
 }
 
-/* Navbar */
+/* top nav */
 #navbar {
     position: fixed;
     top: 0;
@@ -97,7 +97,7 @@ body.light-mode .gpa {
     text-shadow: 0 0 8px var(--cmd-color);
 }
 
-/* Sections */
+/* scroll sections */
 .scroll-section {
     min-height: 100vh;
     display: flex;
@@ -138,7 +138,7 @@ body.light-mode .gpa {
     transition: border-color 0.3s;
 }
 
-/* Content Typography */
+/* text styling */
 h1 {
     font-size: 3rem;
     color: var(--highlight-color);
@@ -181,9 +181,9 @@ p {
     color: #8b949e;
 }
 
-/* Specific elements */
+/* custom classes */
 .folder-name {
-    color: var(--cmd-color);
+    color: var(--highlight-color);
 }
 
 .company, .degree {
@@ -197,7 +197,7 @@ p {
     margin-bottom: 10px;
 }
 
-/* Animations */
+/* transitions & keyframes */
 .hidden {
     opacity: 0;
     transform: translateY(30px);
@@ -220,7 +220,7 @@ p {
     50% { opacity: 0; }
 }
 
-/* Responsive adjustments */
+/* mobile fixes */
 @media (max-width: 768px) {
     #navbar a {
         margin: 0 8px;
