@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.2
+        threshold: 0.1 // lower threshold to ensure it shows up even if tall
     };
 
     const observerCallback = (entries, observer) => {
@@ -108,6 +108,83 @@ document.addEventListener("DOMContentLoaded", () => {
                 glitchText.style.transform = 'translate(0, 0)';
             }, 50);
         }, 3000);
+    }
+
+    // full-page smooth scrolling logic
+    let isScrolling = false;
+    let currentSectionIndex = 0;
+    const sections = Array.from(document.querySelectorAll('.scroll-section'));
+
+    // map navbar links to update index when clicked
+    document.querySelectorAll('#navbar a').forEach((link, index) => {
+        link.addEventListener('click', (e) => {
+            currentSectionIndex = index;
+        });
+    });
+
+    // Update current index based on manual scrolling
+    window.addEventListener('scroll', () => {
+        if (isScrolling) return;
+        
+        let current = '';
+        sections.forEach((section, index) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= (sectionTop - sectionHeight / 3)) {
+                currentSectionIndex = index;
+            }
+        });
+    });
+
+    window.addEventListener('wheel', (e) => {
+        // Only take over scrolling if the window is tall enough to fit the sections
+        // Otherwise, allow normal scrolling so users can read overflowing content
+        if (window.innerHeight < 900) return; // Increased threshold for safety
+
+        // Check if the current section is taller than the viewport
+        const currentSection = sections[currentSectionIndex];
+        const isTallerThanViewport = currentSection.scrollHeight > window.innerHeight;
+
+        // If the section is taller than the viewport, only take over scroll
+        // if we are at the very top (and trying to scroll up) or 
+        // at the very bottom (and trying to scroll down)
+        if (isTallerThanViewport) {
+            const atTop = window.scrollY <= currentSection.offsetTop + 10;
+            const atBottom = window.scrollY + window.innerHeight >= currentSection.offsetTop + currentSection.scrollHeight - 10;
+            
+            if (e.deltaY > 0 && !atBottom) return; // Scrolling down but not at bottom
+            if (e.deltaY < 0 && !atTop) return;    // Scrolling up but not at top
+        }
+
+        // disable default scrolling
+        e.preventDefault();
+        
+        if (isScrolling) return;
+
+        // determine scroll direction
+        if (e.deltaY > 0) {
+            // scrolling down
+            if (currentSectionIndex < sections.length - 1) {
+                currentSectionIndex++;
+                scrollToSection(currentSectionIndex);
+            }
+        } else {
+            // scrolling up
+            if (currentSectionIndex > 0) {
+                currentSectionIndex--;
+                scrollToSection(currentSectionIndex);
+            }
+        }
+    }, { passive: false });
+
+    function scrollToSection(index) {
+        isScrolling = true;
+        sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // wait for scroll to finish before allowing another one
+        setTimeout(() => {
+            isScrolling = false;
+        }, 1000); // 1 second cooldown matches typical smooth scroll duration
     }
 
     // theme toggle logic

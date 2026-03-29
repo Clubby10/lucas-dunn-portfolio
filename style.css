@@ -31,12 +31,6 @@ body.light-mode {
     --highlight-color: #cf222e;
 }
 
-body.light-mode .terminal-window {
-    background-color: #ffffff;
-    border-color: #d0d7de;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
 body.light-mode #navbar {
     background-color: rgba(240, 246, 252, 0.95);
     border-bottom: 1px solid #d0d7de;
@@ -103,20 +97,14 @@ body.light-mode .gpa {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 80px 10% 20px 10%;
+    padding: 100px 10% 40px 10%; /* adjusted padding for tall content */
     box-sizing: border-box;
 }
 
 .terminal-window {
-    background-color: #010409;
-    border: 1px solid #30363d;
-    border-radius: 6px;
-    padding: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
 .command-line {
