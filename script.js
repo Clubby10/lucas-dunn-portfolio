@@ -24,11 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 descriptionHTML = `<p class="details">  - ${project.description}</p>`;
             }
 
+            let githubLinkHTML = project.github ? `<p class="project-link">  - Repo: <a href="${project.github}" target="_blank" rel="noopener noreferrer">${project.github}</a></p>` : '';
+
             projectsHTML += `
                 <div class="content-block">
                     <h3 class="folder-name">${project.name}</h3>
                     ${descriptionHTML}
                     <p class="tech-stack">  - Stack: ${project.techStack}</p>
+                    ${githubLinkHTML}
                 </div>
             `;
         });
@@ -41,11 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
         let experienceHTML = '';
         portfolioData.experience.forEach(exp => {
             let tasksHTML = exp.tasks.map(task => `<li>> ${task}</li>`).join('');
+            let imgHTML = exp.image ? `<img src="${exp.image}" alt="${exp.company} logo" class="entry-logo">` : '';
             
             experienceHTML += `
                 <div class="content-block">
-                    <h3 class="job-title">${exp.title} <span class="company">@ ${exp.company}</span></h3>
-                    <p class="date-location">${exp.date} | ${exp.location}</p>
+                    <div class="entry-header">
+                        ${imgHTML}
+                        <div class="entry-title-container">
+                            <h3 class="job-title">${exp.title} <span class="company">@ ${exp.company}</span></h3>
+                            <p class="date-location">${exp.date} | ${exp.location}</p>
+                        </div>
+                    </div>
                     <ul class="task-list">
                         ${tasksHTML}
                     </ul>
@@ -61,13 +70,19 @@ document.addEventListener("DOMContentLoaded", () => {
         let educationHTML = '';
         portfolioData.education.forEach(edu => {
             let courseworkHTML = edu.coursework.map(course => `<p>> ${course}</p>`).join('');
+            let imgHTML = edu.image ? `<img src="${edu.image}" alt="${edu.school} logo" class="entry-logo">` : '';
             
             educationHTML += `
                 <div class="content-block">
-                    <h3 class="school-name">${edu.school}</h3>
-                    <p class="degree">${edu.degree}</p>
-                    <p class="grad-date">${edu.gradDate}</p>
-                    <p class="gpa">GPA: ${edu.gpa}</p>
+                    <div class="entry-header">
+                        ${imgHTML}
+                        <div class="entry-title-container">
+                            <h3 class="school-name">${edu.school}</h3>
+                            <p class="degree">${edu.degree}</p>
+                            <p class="grad-date">${edu.gradDate}</p>
+                            ${edu.gpa ? `<p class="gpa">GPA: ${edu.gpa}</p>` : ''}
+                        </div>
+                    </div>
                     <br>
                     <p class="coursework"><strong>Relevant Coursework:</strong></p>
                     ${courseworkHTML}
@@ -122,6 +137,48 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Handle keyboard arrow scrolling
+    window.addEventListener('keydown', (e) => {
+        // Only take over if the window is tall enough
+        if (window.innerHeight < 900) return;
+
+        // Check if the current section is taller than the viewport
+        const currentSection = sections[currentSectionIndex];
+        const isTallerThanViewport = currentSection.scrollHeight > window.innerHeight;
+
+        const isDownKey = e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ';
+        const isUpKey = e.key === 'ArrowUp' || e.key === 'PageUp';
+
+        if (!isDownKey && !isUpKey) return;
+
+        // If the section is taller than the viewport, let normal scrolling happen 
+        // until we hit the top or bottom
+        if (isTallerThanViewport) {
+            const atTop = window.scrollY <= currentSection.offsetTop + 10;
+            const atBottom = window.scrollY + window.innerHeight >= currentSection.offsetTop + currentSection.scrollHeight - 10;
+            
+            if (isDownKey && !atBottom) return; 
+            if (isUpKey && !atTop) return;    
+        }
+
+        // We are at an edge (or section is small), take over scrolling
+        e.preventDefault();
+        
+        if (isScrolling) return;
+
+        if (isDownKey) {
+            if (currentSectionIndex < sections.length - 1) {
+                currentSectionIndex++;
+                scrollToSection(currentSectionIndex, 'down');
+            }
+        } else if (isUpKey) {
+            if (currentSectionIndex > 0) {
+                currentSectionIndex--;
+                scrollToSection(currentSectionIndex, 'up');
+            }
+        }
+    });
+
     // Update current index based on manual scrolling
     window.addEventListener('scroll', () => {
         if (isScrolling) return;
@@ -166,20 +223,28 @@ document.addEventListener("DOMContentLoaded", () => {
             // scrolling down
             if (currentSectionIndex < sections.length - 1) {
                 currentSectionIndex++;
-                scrollToSection(currentSectionIndex);
+                scrollToSection(currentSectionIndex, 'down');
             }
         } else {
             // scrolling up
             if (currentSectionIndex > 0) {
                 currentSectionIndex--;
-                scrollToSection(currentSectionIndex);
+                scrollToSection(currentSectionIndex, 'up');
             }
         }
     }, { passive: false });
 
-    function scrollToSection(index) {
+    function scrollToSection(index, scrollDirection = 'down') {
         isScrolling = true;
-        sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // If scrolling up to a section that is taller than the viewport,
+        // snap to the bottom of that section instead of the top
+        const targetSection = sections[index];
+        if (scrollDirection === 'up' && targetSection.scrollHeight > window.innerHeight) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        } else {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         
         // wait for scroll to finish before allowing another one
         setTimeout(() => {

@@ -170,7 +170,46 @@ p {
 }
 
 /* custom classes */
+.entry-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.entry-title-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.entry-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-right: 15px;
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+.project-link a {
+    color: var(--cmd-color);
+    text-decoration: none;
+}
+
+.project-link a:hover {
+    text-decoration: underline;
+}
+
 .folder-name {
+    color: var(--highlight-color);
+}
+
+.job-title {
+    margin: 0;
+}
+
+.school-name {
+    margin: 0;
+    font-size: 1.3rem;
     color: var(--highlight-color);
 }
 

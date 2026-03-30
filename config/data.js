@@ -16,7 +16,8 @@ const portfolioData = {
                 "Designed a multi-step Swing interface that reduced posting errors by ~40% through enforced validation and confirmation logic.",
                 "Implemented a messaging abstraction layer with automatic retries and fault recovery, improving system reliability under failure conditions."
             ],
-            techStack: "Java, IBM MQ, Swing, XML, Git"
+            techStack: "Java, IBM MQ, Swing, XML, Git",
+            github: "" // Add your github link here (e.g. "https://github.com/yourusername/repo")
         },
         {
             name: "MQ Trigger Monitoring Service",
@@ -24,7 +25,8 @@ const portfolioData = {
                 "Built a Java service to consume and process IBM MQ trigger events, automating workflows across multiple downstream systems and reducing manual intervention.",
                 "Implemented an event listener pipeline achieving sub-second latency, enabling faster system responses across distributed services."
             ],
-            techStack: "Java, IBM MQ, XML, Git"
+            techStack: "Java, IBM MQ, XML, Git",
+            github: "" // Optional: link won't render if left empty
         },
         {
             name: "Hole In One Hub",
@@ -32,7 +34,8 @@ const portfolioData = {
                 "Developed a full-featured iOS application with geolocation-based course discovery and Firebase-backed persistence.",
                 "Implemented authentication, user profiles, and social interactions with real-time cloud data synchronization using Firebase."
             ],
-            techStack: "Swift, iOS, Firebase, Git"
+            techStack: "Swift, iOS, Firebase, Git",
+            github: "" 
         }
     ],
 
@@ -41,6 +44,7 @@ const portfolioData = {
         {
             title: "Software Engineer",
             company: "Dunn Tech Consulting Inc",
+            image: "config/images/dunntech.jpg", // Add image path here (e.g. "config/images/logo.png")
             date: "Apr 2025 - Present",
             location: "Hamilton, Ontario, Canada · Remote",
             tasks: [
@@ -53,6 +57,7 @@ const portfolioData = {
         {
             title: "Production Operations Intern - Coke Plant",
             company: "ArcelorMittal Dofasco",
+            image: "config/images/arcelormittaldofasco.jpg", // Optional: image won't render if left empty
             date: "May 2025 - Aug 2025",
             location: "Hamilton, Ontario, Canada · On-site",
             tasks: [
@@ -64,6 +69,7 @@ const portfolioData = {
         {
             title: "Assistant Student Custodian",
             company: "Hamilton-Wentworth Catholic District School Board",
+            image: "config/images/hwcdsb.jpg",
             date: "Jul 2024 - Aug 2024",
             location: "Hamilton, Ontario, Canada · On-site",
             tasks: [
@@ -73,6 +79,7 @@ const portfolioData = {
         {
             title: "iOS App Developer",
             company: "Career Education Council",
+            image: "config/images/career_education_council_logo.jpg",
             date: "Feb 2023 - Jun 2023",
             location: "Remote",
             tasks: [
@@ -87,6 +94,7 @@ const portfolioData = {
     education: [
         {
             school: "Queen’s University",
+            image: "", // Add image path here (e.g. "config/images/queens.png")
             degree: "Bachelor of Computing (Honours), Software Design",
             gradDate: "Expected Graduation: Apr 2028",
             gpa: "3.9/4.3",
@@ -100,6 +108,7 @@ const portfolioData = {
         },
         {
             school: "Queen’s University",
+            image: "",
             degree: "Minor in Economics",
             gradDate: "Expected Completion: Apr 2028",
             gpa: "",
