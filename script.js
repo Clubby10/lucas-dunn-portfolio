@@ -141,6 +141,12 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('keydown', (e) => {
         // Only take over if the window is tall enough
         if (window.innerHeight < 900) return;
+        
+        // Prevent stacking jumps
+        if (isScrolling) {
+            e.preventDefault();
+            return;
+        }
 
         // Check if the current section is taller than the viewport
         const currentSection = sections[currentSectionIndex];
@@ -197,6 +203,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Only take over scrolling if the window is tall enough to fit the sections
         // Otherwise, allow normal scrolling so users can read overflowing content
         if (window.innerHeight < 900) return; // Increased threshold for safety
+        
+        // Prevent scroll stacking / glitching if we are already in an animation lock
+        if (isScrolling) {
+            e.preventDefault();
+            return;
+        }
 
         // Check if the current section is taller than the viewport
         const currentSection = sections[currentSectionIndex];
