@@ -48,16 +48,16 @@ document.addEventListener("DOMContentLoaded", () => {
             
             experienceHTML += `
                 <div class="content-block">
-                    <div class="entry-header">
+                    <div class="entry-header" style="align-items: flex-start;">
                         ${imgHTML}
                         <div class="entry-title-container">
                             <h3 class="job-title">${exp.title} <span class="company">@ ${exp.company}</span></h3>
                             <p class="date-location">${exp.date} | ${exp.location}</p>
+                            <ul class="task-list" style="margin-top: 5px;">
+                                ${tasksHTML}
+                            </ul>
                         </div>
                     </div>
-                    <ul class="task-list">
-                        ${tasksHTML}
-                    </ul>
                 </div>
             `;
         });
@@ -74,18 +74,19 @@ document.addEventListener("DOMContentLoaded", () => {
             
             educationHTML += `
                 <div class="content-block">
-                    <div class="entry-header">
+                    <div class="entry-header" style="align-items: flex-start;">
                         ${imgHTML}
                         <div class="entry-title-container">
                             <h3 class="school-name">${edu.school}</h3>
                             <p class="degree">${edu.degree}</p>
                             <p class="grad-date">${edu.gradDate}</p>
                             ${edu.gpa ? `<p class="gpa">GPA: ${edu.gpa}</p>` : ''}
+                            <div style="margin-top: 10px;">
+                                <p class="coursework"><strong>Relevant Coursework:</strong></p>
+                                ${courseworkHTML}
+                            </div>
                         </div>
                     </div>
-                    <br>
-                    <p class="coursework"><strong>Relevant Coursework:</strong></p>
-                    ${courseworkHTML}
                 </div>
             `;
         });

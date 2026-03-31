@@ -173,7 +173,7 @@ p {
 .entry-header {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
 
 .entry-title-container {
@@ -186,6 +186,7 @@ p {
     height: 50px;
     object-fit: contain;
     margin-right: 15px;
+    margin-top: 10px;
     border-radius: 4px;
     background-color: transparent;
 }

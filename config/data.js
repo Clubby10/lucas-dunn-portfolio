@@ -94,7 +94,7 @@ const portfolioData = {
     education: [
         {
             school: "Queen’s University",
-            image: "", // Add image path here (e.g. "config/images/queens.png")
+            image: "config/images/queensU.jpg", // Add image path here (e.g. "config/images/queens.png")
             degree: "Bachelor of Computing (Honours), Software Design",
             gradDate: "Expected Graduation: Apr 2028",
             gpa: "3.9/4.3",
@@ -108,7 +108,7 @@ const portfolioData = {
         },
         {
             school: "Queen’s University",
-            image: "",
+            image: "config/images/queensU.jpg",
             degree: "Minor in Economics",
             gradDate: "Expected Completion: Apr 2028",
             gpa: "",
