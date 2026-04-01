@@ -7,6 +7,38 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('name').textContent = personalData.name;
         document.getElementById('role').textContent = personalData.role;
         document.getElementById('intro').textContent = personalData.introMessage;
+
+        // setup social links
+        const socialLinksContainer = document.getElementById('social-links');
+        if (socialLinksContainer) {
+            let socialHTML = '';
+            
+            if (personalData.github) {
+                socialHTML += `
+                    <a href="${personalData.github}" target="_blank" rel="noopener noreferrer" class="social-btn github-btn" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        GitHub
+                    </a>
+                `;
+            }
+
+            if (personalData.linkedin) {
+                socialHTML += `
+                    <a href="${personalData.linkedin}" target="_blank" rel="noopener noreferrer" class="social-btn linkedin-btn" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                        LinkedIn
+                    </a>
+                `;
+            }
+
+            socialLinksContainer.innerHTML = socialHTML;
+        }
     }
 
     // build projects list
@@ -24,7 +56,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 descriptionHTML = `<p class="details">  - ${project.description}</p>`;
             }
 
-            let githubLinkHTML = project.github ? `<p class="project-link">  - Repo: <a href="${project.github}" target="_blank" rel="noopener noreferrer">${project.github}</a></p>` : '';
+            let githubLinkHTML = '';
+            if (project.github) {
+                // Check if the github property is a valid URL or just plain text
+                const isUrl = project.github.startsWith('http://') || project.github.startsWith('https://');
+                if (isUrl) {
+                    githubLinkHTML = `<p class="project-link">  - Repo: <a href="${project.github}" target="_blank" rel="noopener noreferrer">${project.github}</a></p>`;
+                } else {
+                    // It's plain text, don't make it a clickable link
+                    githubLinkHTML = `<p class="project-link">  - Note: ${project.github}</p>`;
+                }
+            }
 
             projectsHTML += `
                 <div class="content-block">

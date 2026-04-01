@@ -4,7 +4,9 @@ const portfolioData = {
     personal: {
         name: "Lucas Dunn",
         role: "Computing Student @ Queen’s University | Software Engineer",
-        introMessage: "Scroll down to explore my projects, experience, and technical background."
+        introMessage: "Scroll down to explore my projects, experience, and technical background.",
+        github: "https://github.com/Clubby10", // Add your GitHub profile link
+        linkedin: "https://www.linkedin.com/in/lucasdunn2/" // Add your LinkedIn profile link
     },
 
     // stuff i've built
@@ -35,7 +37,7 @@ const portfolioData = {
                 "Implemented authentication, user profiles, and social interactions with real-time cloud data synchronization using Firebase."
             ],
             techStack: "Swift, iOS, Firebase, Git",
-            github: "" 
+            github: "Available to view in LinkedIn Projects section" 
         }
     ],
 
